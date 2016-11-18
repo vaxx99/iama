@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/vaxx99/vload/ama"
+	"github.com/vaxx99/iama/ama"
 )
 
 //Open file
