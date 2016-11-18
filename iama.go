@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/vaxx99/zload/bcd"
+	"github.com/vaxx99/iama/bcd"
 )
 
 type block []string
