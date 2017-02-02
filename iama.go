@@ -27,29 +27,12 @@ func main() {
 		wd = "."
 		sp = ""
 	}
-
-	if info, err := os.Stat(wd); err == nil && info.IsDir() {
-		f, _ := ioutil.ReadDir(wd)
-		for _, fn := range f {
-			if isTrue(fn.Name()) {
-				u := time.Now()
-				rec, ft, mT, rc := iama(fn.Name(), sp)
-				f, err := os.OpenFile(mT+"."+strings.ToLower(ft), os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
-				defer f.Close()
-				if err != nil {
-					panic(err)
-				}
-				for _, i := range rec {
-					_, err = f.WriteString(i + "\n")
-				}
-				d := float64(time.Now().Sub(u).Seconds())
-				fmt.Printf("%s%s%.3f%s%d%s", fn.Name(), "\t-->\t", d, "\t-->\t", rc, "\n")
-			}
-		}
-	} else {
-		if isTrue(wd) {
+	os.Chdir(wd)
+	f, _ := ioutil.ReadDir(".")
+	for _, fn := range f {
+		if isTrue(fn.Name()) {
 			u := time.Now()
-			rec, ft, mT, rc := iama(wd, sp)
+			rec, ft, mT, rc := iama(fn.Name(), sp)
 			f, err := os.OpenFile(mT+"."+strings.ToLower(ft), os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 			defer f.Close()
 			if err != nil {
@@ -59,7 +42,7 @@ func main() {
 				_, err = f.WriteString(i + "\n")
 			}
 			d := float64(time.Now().Sub(u).Seconds())
-			fmt.Printf("%s%s%.3f%s%d%s", wd, "\t-->\t", d, "\t-->\t", rc, "\n")
+			fmt.Printf("%s%s%.3f%s%d%s", fn.Name(), "\t-->\t", d, "\t-->\t", rc, "\n")
 		}
 	}
 }
@@ -341,6 +324,9 @@ func A0003(bcd, yy, sp string) string {
 }
 
 func isTrue(fn string) bool {
+	if info, err := os.Stat(fn); err == nil && info.IsDir() {
+		return false
+	}
 	f, _ := os.Open(fn)
 	defer f.Close()
 	data, _ := bcd.Read(f, 31)

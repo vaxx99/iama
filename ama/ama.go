@@ -10,53 +10,53 @@ type Record struct {
 }
 
 type Redrec struct {
-    Id string `json:"id"`
-    Sw string `json:"sw"`
-    Hi string `json:"hi"`
-    Na string `json:"na"`
-    Nb string `json:"nb"`
-    Ds string `json:"ds"`
-    De string `json:"de"`
-    Dr string `json:"dr"`
-    Ot string `json:"ot"`
-    It string `json:"it"`
-    Du string `json:"du"`
+	Id string `json:"id"`
+	Sw string `json:"sw"`
+	Hi string `json:"hi"`
+	Na string `json:"na"`
+	Nb string `json:"nb"`
+	Ds string `json:"ds"`
+	De string `json:"de"`
+	Dr string `json:"dr"`
+	Ot string `json:"ot"`
+	It string `json:"it"`
+	Du string `json:"du"`
 }
 
 func A9020(bcd, yy string) string {
-	aa := bcd[0:2]
-	aa += bcd[2:6]
-	aa += bcd[6:12]
-	aa += bcd[12:18]
-	i, _ := strconv.Atoi(bcd[18:20])
-	aa += bcd[36-i : 36]
-	i, _ = strconv.Atoi(bcd[36:38])
-	aa += bcd[70-i : 70]
-	aa += bcd[70:74]
-	aa += bcd[74:78]
-	aa += bcd[78:80]
-	aa += bcd[80:82]
-	aa += bcd[82:84]
+	aa := bcd[0:2]                   //Hexadecimal Identifier
+	aa += bcd[2:6]                   //Structure Identifier Code
+	aa += bcd[6:12]                  //Ticket Number
+	aa += bcd[12:18]                 //Sequence Number
+	i, _ := strconv.Atoi(bcd[18:20]) //Originating Number NoA
+	aa += bcd[36-i : 36]             //Originating Phone Number
+	i, _ = strconv.Atoi(bcd[36:38])  //Terminating Number NoA
+	aa += bcd[70-i : 70]             //Terminating Phone Number
+	aa += bcd[70:74]                 //Charge Category
+	aa += bcd[74:78]                 //Nature of Call
+	aa += bcd[78:80]                 //CDA Indicator
+	aa += bcd[80:82]                 //LDC Indicator
+	aa += bcd[82:84]                 //Service Class of Call
 	aa += bcd[84:86]
 	aa += bcd[86:88]
-	aa += yy + bcd[89:99]
-	aa += bcd[99:100]
-	aa += yy + bcd[101:111]
-	aa += bcd[111:112]
-	aa += bcd[112:114]
-	aa += bcd[114:118]
-	aa += bcd[118:122]
-	aa += bcd[122:126]
-	aa += bcd[126:132]
-	aa += bcd[132:138]
-	aa += bcd[138:140]
-	aa += bcd[140:148]
-	aa += bcd[148:150]
-	aa += bcd[150:152]
-	aa += bcd[152:154]
-	aa += bcd[154:156]
-	aa += bcd[156:158]
-	aa += bcd[158:160]
+	aa += yy + bcd[89:99]   //Date and Time of Charging Commencement
+	aa += bcd[99:100]       //ms
+	aa += yy + bcd[101:111] //Date and Time of Call End
+	aa += bcd[111:112]      //ms
+	aa += bcd[112:114]      //Cause of Call End
+	aa += bcd[114:118]      //Destination
+	aa += bcd[118:122]      //Outgoing Trunk Group
+	aa += bcd[122:126]      //Incoming Trunk Group
+	aa += bcd[126:132]      //Conversation Time
+	aa += bcd[132:138]      //Chargeable Duration
+	aa += bcd[138:140]      //Class of Rate
+	aa += bcd[140:148]      //Fee
+	aa += bcd[148:150]      //Trouble Mark
+	aa += bcd[150:152]      //Day
+	aa += bcd[152:154]      //A-Party Category
+	aa += bcd[154:156]      //Type of Call
+	aa += bcd[156:158]      //Customer Feature
+	aa += bcd[158:160]      //Customer Feature Action
 	return aa
 }
 
